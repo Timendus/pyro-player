@@ -1,0 +1,185 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/** Layout **/
+
+section {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+h1, p {
+  flex: 0 0 auto;
+}
+article {
+  flex: 1 1 auto;
+  position: relative;
+}
+button, label {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+}
+
+/** Elements **/
+
+h1 {
+  padding: 0.5em;
+  margin: 0;
+
+  background-color: #880088;
+  color: white;
+  font: 2em Tahoma, Arial;
+}
+
+p {
+  font: 1em Tahoma, Arial;
+  margin: 1em;
+  text-align: center;
+}
+
+button {
+  border: 0;
+  border-radius: 50%;
+  color: white;
+  font-weight: bold;
+  font-family: monospace, Arial;
+  cursor: pointer;
+}
+button:focus {
+  outline:0;
+}
+
+/** Way too fancy Play button **/
+
+button.play {
+  width: 30vh;
+  height: 30vh;
+  margin: -23vh 0 0 -15vh;
+
+  background-color: #880088;
+  transition: background-color 0.5s ease;
+}
+
+button.play.playing {
+  background-color: #1335b3;
+}
+button.play.waiting {
+  animation-name: pulsate-green;
+  animation-duration: 1.5s;
+  animation-iteration-count: infinite;
+}
+button.play.error {
+  background-color: #da0101;
+}
+button.play.disabled {
+  background-color: gray;
+  cursor: default;
+  pointer-events: none;
+}
+
+button.play:before {
+  content: ' ';
+  position: absolute;
+  display: block;
+  left: 50%;
+  top: 50%;
+}
+
+button.play.playing:before {
+  width: 10vh;
+  height: 10vh;
+  margin: -5vh auto auto -5vh;
+  background-color: white;
+}
+button.play.stopped:before {
+  width: 0;
+  height: 0;
+  border-top: 6vh solid transparent;
+  border-bottom: 6vh solid transparent;
+  border-left: 10vh solid white;
+  margin: -6vh auto auto -4vh;
+}
+
+button.play.waiting:before, button.error:before {
+  left: 0;
+  margin-top: -3vh;
+  width: 100%;
+  text-align: center;
+  font-size: 4.5vh;
+}
+
+button.play.waiting:before {
+  content: 'loading';
+}
+button.play.error:before {
+  content: 'no stream';
+}
+
+input[type="file"]{
+  display: none;
+}
+
+label {
+  display: inline-block;
+  width: 10vh;
+  height: 10vh;
+  line-height: 10vh;
+  margin-left: -5.5vh;
+  margin-top: 10vh;
+  padding: 1vh;
+
+  cursor: pointer;
+  background-color: #1bbd1b;
+  border-radius: 50%;
+  text-align: center;
+  font-family: Tahoma, Arial, sans-serif;
+  font-size: 1.5vh;
+  color: white;
+}
+
+label.disabled {
+  background-color: gray;
+  cursor: default;
+}
+
+label .disabled {
+  display: none;
+}
+label.disabled .normal {
+  display: none;
+}
+label.disabled .disabled {
+  display: inline;
+}
+
+/** Animations **/
+
+@keyframes pulsate-green {
+  0% {
+    background-color: #11ad82;
+  }
+  50% {
+    background-color: #0e8a68;
+  }
+  100% {
+    background-color: #11ad82;
+  }
+}
+
+@keyframes pulsate-orange {
+  0% {
+    background-color: #e47e14;
+  }
+  50% {
+    background-color: #c1690d;
+  }
+  100% {
+    background-color: #e47e14;
+  }
+}
