@@ -11,50 +11,47 @@ window.addEventListener('load', function() {
   mediaButton.addEventListener('change', (e) => {
     _readFile(e.target.files[0], true).then((r) => {
       audio = new Audio(r);
+      connectAudioEvents();
       updateButtonStates();
     });
   });
 
   srtButton.addEventListener('change', (e) => {
     _readFile(e.target.files[0]).then((r) => {
-      let match, subs = [];
-      let iterator = r.matchAll(/\d\n(\d+):(\d+):(\d+),(\d+)\s.*\n(.*)\n/g);
-
-      // TODO: is this the best way to iterate over regexp matches?
-      while ( !(match = iterator.next()).done ) {
-        let [_, h, m, s, ms, value] = match.value;
-        const label = 3600*h + 60*m + 1*s + 0.001*ms;
-        subs.push([label, value]);
-      }
-
-      subtitles = subs;
+      subtitles = parseSRTFile(r);
       updateButtonStates();
     });
   });
 
   playButton.addEventListener('click', function() {
     if ( audio.paused ) {
-      connectAudioEvents();
-      startAudioWatcher();
       // TODO: fix catch
       try {
         audio.play();
       } catch(e) {
-        removeAudioEvents();
-        stopAudioWatcher();
         selectError();
-        audio.currentTime = 0;
       }
     } else {
       audio.pause();
-      removeAudioEvents();
-      stopAudioWatcher()
-      selectStopped();
       audio.currentTime = 0;
     }
   });
 
   /*** Functions ***/
+
+  function parseSRTFile(file) {
+    let match, subs = [];
+    let iterator = file.matchAll(/\d\n(\d+):(\d+):(\d+),(\d+)\s.*\n(.*)\n/g);
+
+    // TODO: is this the best way to iterate over regexp matches?
+    while ( !(match = iterator.next()).done ) {
+      let [_, h, m, s, ms, value] = match.value;
+      const label = 3600*h + 60*m + 1*s + 0.001*ms;
+      subs.push([label, value]);
+    }
+
+    return subs;
+  }
 
   function updateButtonStates() {
     if ( subtitles ) {
@@ -75,23 +72,22 @@ window.addEventListener('load', function() {
     playButton.classList.add(className);
   }
 
-  function selectWaiting() { selectClass('waiting'); }
-  function selectStopped() { selectClass('stopped'); subtitleIndex = 0; }
-  function selectError()   { selectClass('error');   }
-  function selectPlaying() { selectClass('playing'); }
+  function events(callback) {
+    [
+      [ 'playing', () => { selectClass('playing'); startAudioWatcher(); } ],
+      [ 'waiting', () => { selectClass('waiting'); } ],
+      [ 'error',   () => { selectClass('error'); } ],
+      [ 'ended',   () => { selectClass('stopped'); stopAudioWatcher(); } ],
+      [ 'pause',   () => { selectClass('stopped'); stopAudioWatcher(); } ]
+    ].forEach(callback);
+  }
 
   function connectAudioEvents() {
-    audio.addEventListener('playing', selectPlaying);
-    audio.addEventListener('waiting', selectWaiting);
-    audio.addEventListener('error',   selectError);
-    audio.addEventListener('ended',   selectStopped);
+    events(([e,m]) => audio.addEventListener(e,m));
   }
 
   function removeAudioEvents() {
-    audio.removeEventListener('playing', selectPlaying);
-    audio.removeEventListener('waiting', selectWaiting);
-    audio.removeEventListener('error',   selectError);
-    audio.removeEventListener('ended',   selectStopped);
+    events(([e,m]) => audio.removeEventListener(e,m));
   }
 
   function startAudioWatcher() {
@@ -107,6 +103,7 @@ window.addEventListener('load', function() {
 
   function stopAudioWatcher() {
     window.clearInterval(interval);
+    subtitleIndex = 0;
   }
 
   function _readFile(file, binary=false) {
