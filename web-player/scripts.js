@@ -9,7 +9,11 @@ window.addEventListener('load', function() {
   let subtitleIndex = 0;
 
   mediaButton.addEventListener('change', (e) => {
-    _readFile(e.target.files[0], true).then((r) => {
+    readFile({
+      file: e.target.files[0],
+      binary: true
+    })
+    .then((r) => {
       audio = new Audio(r);
       connectAudioEvents();
       updateButtonStates();
@@ -17,7 +21,11 @@ window.addEventListener('load', function() {
   });
 
   srtButton.addEventListener('change', (e) => {
-    _readFile(e.target.files[0]).then((r) => {
+    readFile({
+      file: e.target.files[0],
+      binary: false
+    })
+    .then((r) => {
       subtitles = parseSRTFile(r);
       updateButtonStates();
     });
@@ -106,7 +114,7 @@ window.addEventListener('load', function() {
     subtitleIndex = 0;
   }
 
-  function _readFile(file, binary=false) {
+  function readFile({file, binary}) {
     return new Promise((resolve, reject) => {
       var reader = new FileReader();
       reader.addEventListener('load', (e) => resolve(e.target.result));
