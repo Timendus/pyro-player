@@ -1,53 +1,74 @@
 window.addEventListener('load', function() {
-  var audio         = null;
-  var interval      = null;
-  var playButton    = document.querySelector('button.play');
-  var srtButton     = document.querySelector('#subtitles');
+  const playButton  = document.querySelector('button.play');
+  const srtButton   = document.querySelector('#subtitles');
+  const mediaButton = document.querySelector('#media');
+
+  let audio         = null;
+  let interval      = null;
   let subtitles     = null;
   let subtitleIndex = 0;
 
+  mediaButton.addEventListener('change', (e) => {
+    _readFile(e.target.files[0], true).then((r) => {
+      audio = new Audio(r);
+      updateButtonStates();
+    });
+  });
+
   srtButton.addEventListener('change', (e) => {
     _readFile(e.target.files[0]).then((r) => {
+      let match, subs = [];
+      let iterator = r.matchAll(/\d\n(\d+):(\d+):(\d+),(\d+)\s.*\n(.*)\n/g);
 
-      // Ugly code to reduce subtitle file to hash { time: text }
-      let subs = r.split('\n\n');
-      subs = subs.map((s) => s.split('\n'));
-      subs = subs.reduce((o,[x,k,v,y]) => {
-        if ( !k ) return o;
-        k = k.split(' ')[0];
-        let [seconds, subseconds] = k.split(',');
-        seconds = seconds.split(':');
-        k = 3600*seconds[0] + 60*seconds[1] + 1*seconds[2] + 0.001*subseconds;
-        return (o[k]=v,o)
-      }, {});
+      // TODO: is this the best way to iterate over regexp matches?
+      while ( !(match = iterator.next()).done ) {
+        let [_, h, m, s, ms, value] = match.value;
+        const label = 3600*h + 60*m + 1*s + 0.001*ms;
+        subs.push([label, value]);
+      }
 
-      // Store new hash for later use
       subtitles = subs;
-
-      // Update interface
-      srtButton.closest('label').classList.add('disabled');
-      srtButton.disabled = 'disabled';
-      playButton.classList.remove('disabled');
+      updateButtonStates();
     });
   });
 
   playButton.addEventListener('click', function() {
-    if (audio == null) {
-      audio = new Audio('media/music-file.mp3');
+    if ( audio.paused ) {
       connectAudioEvents();
       startAudioWatcher();
-      audio.play();
+      // TODO: fix catch
+      try {
+        audio.play();
+      } catch(e) {
+        removeAudioEvents();
+        stopAudioWatcher();
+        selectError();
+        audio.currentTime = 0;
+      }
     } else {
       audio.pause();
       removeAudioEvents();
       stopAudioWatcher()
-      audio.currentTime = 0;
-      audio.src = '';
-      audio = null;
-      interval = null;
       selectStopped();
+      audio.currentTime = 0;
     }
   });
+
+  /*** Functions ***/
+
+  function updateButtonStates() {
+    if ( subtitles ) {
+      srtButton.closest('label').classList.add('disabled');
+      srtButton.disabled = 'disabled';
+    }
+    if ( audio ) {
+      mediaButton.closest('label').classList.add('disabled');
+      mediaButton.disabled = 'disabled';
+    }
+    if ( subtitles && audio ) {
+      playButton.classList.remove('disabled');
+    }
+  }
 
   function selectClass(className) {
     playButton.classList.remove('stopped','waiting','error','playing');
@@ -75,28 +96,28 @@ window.addEventListener('load', function() {
 
   function startAudioWatcher() {
     interval = window.setInterval(() => {
-      if ( !subtitles ) return;
-      if ( audio.currentTime > Object.keys(subtitles)[subtitleIndex] ) {
-        let key = Object.keys(subtitles)[subtitleIndex];
-        subtitleIndex++;
-
+      if ( !subtitles || subtitleIndex == subtitles.length ) return;
+      if ( audio.currentTime > subtitles[subtitleIndex][0] ) {
         // TODO: send command to raspberry pi / Arduino board
-        console.log(subtitles[key]);
+        console.log(subtitles[subtitleIndex][1]);
+        subtitleIndex++;
       }
-    }, 100);
+    }, 50);
   }
 
   function stopAudioWatcher() {
     window.clearInterval(interval);
   }
 
-  function _readFile(file) {
+  function _readFile(file, binary=false) {
     return new Promise((resolve, reject) => {
       var reader = new FileReader();
       reader.addEventListener('load', (e) => resolve(e.target.result));
-      reader.readAsText(file);
+      if ( binary )
+        reader.readAsDataURL(file);
+      else
+        reader.readAsText(file);
     });
   }
 
-  selectStopped();
 });

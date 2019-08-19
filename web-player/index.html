@@ -13,12 +13,21 @@
     <section>
       <h1>Pyro Player</h1>
       <article>
+
         <button class="play stopped disabled"></button>
-        <label>
+
+        <label class="media">
+          <input type="file" id="media"/>
+          <span class="normal">Select media</span>
+          <span class="disabled">Media loaded!</span>
+        </label>
+
+        <label class="subtitles">
           <input type="file" id="subtitles"/>
           <span class="normal">Select .srt file</span>
           <span class="disabled">.srt file loaded!</span>
         </label>
+
       </article>
     </section>
   </body>
