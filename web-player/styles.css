@@ -32,7 +32,8 @@ h1 {
   padding: 0.5em;
   margin: 0;
 
-  background-color: #880088;
+  background-color: #d64a4a;
+  text-align: center;
   color: white;
   font: 2em Tahoma, Arial;
 }
@@ -62,12 +63,14 @@ button.play {
   height: 30vh;
   margin: -23vh 0 0 -15vh;
 
-  background-color: #880088;
+  background-color: #5dd35d;
+  border: 3px solid #36a836;
   transition: background-color 0.5s ease;
 }
 
 button.play.playing {
-  background-color: #1335b3;
+  background-color: #607adc;
+  border: 3px solid #37379c;
 }
 button.play.waiting {
   animation-name: pulsate-green;
@@ -78,7 +81,8 @@ button.play.error {
   background-color: #da0101;
 }
 button.play.disabled {
-  background-color: gray;
+  background-color: #dadada;
+  border: 3px solid #c5c5c5;
   cursor: default;
   pointer-events: none;
 }
@@ -130,21 +134,28 @@ label {
   width: 10vh;
   height: 10vh;
   line-height: 10vh;
-  margin-left: -6vh;
   margin-top: 10vh;
   padding: 1vh;
 
   cursor: pointer;
-  background-color: #1bbd1b;
+  background-color: #5dd35d;
+  border: 3px solid #36a836;
   border-radius: 50%;
   text-align: center;
   font-family: Tahoma, Arial, sans-serif;
   font-size: 1.5vh;
   color: white;
 }
+label.media {
+  margin-left: -13vh;
+}
+label.subtitles {
+  margin-left: 1vh;
+}
 
 label.disabled {
-  background-color: gray;
+  background-color: #dadada;
+  border: 3px solid #c5c5c5;
   cursor: default;
 }
 
