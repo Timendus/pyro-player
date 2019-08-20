@@ -6,6 +6,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="styles.css">
+    <script type="text/javascript" src="in-memory-file.js"></script>
+    <script type="text/javascript" src="player.js"></script>
+    <script type="text/javascript" src="player-watcher.js"></script>
     <script type="text/javascript" src="scripts.js"></script>
   </head>
 
@@ -17,13 +20,13 @@
         <button class="play stopped disabled"></button>
 
         <label class="media">
-          <input type="file" id="media"/>
+          <input type="file" id="media" accept="audio/*,video/*"/>
           <span class="normal">Select media</span>
           <span class="disabled">Media loaded!</span>
         </label>
 
         <label class="subtitles">
-          <input type="file" id="subtitles"/>
+          <input type="file" id="subtitles" accept=".srt"/>
           <span class="normal">Select .srt file</span>
           <span class="disabled">.srt file loaded!</span>
         </label>

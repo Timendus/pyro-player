@@ -78,7 +78,7 @@ button.play.waiting {
   animation-iteration-count: infinite;
 }
 button.play.error {
-  background-color: #da0101;
+  background-color: #da0101 !important;
 }
 button.play.disabled {
   background-color: #dadada;
@@ -122,7 +122,7 @@ button.play.waiting:before {
   content: 'loading';
 }
 button.play.error:before {
-  content: 'no stream';
+  content: 'invalid file';
 }
 
 input[type="file"]{
