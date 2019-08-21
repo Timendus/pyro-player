@@ -43,4 +43,20 @@ window.addEventListener('load', function() {
     }
   }
 
+  window.WebSocket = window.WebSocket || window.MozWebSocket;
+  var connection = new WebSocket('ws://127.0.0.1:8080', 'fireworks-protocol');
+
+  connection.onopen = function () {
+    console.log('Opened connection magic');
+    connection.send('test!');
+  };
+
+  connection.onerror = function (error) {
+    console.error('Shit blew up:', error);
+  };
+
+  connection.onmessage = function (message) {
+    console.log(message);
+  };
+
 });

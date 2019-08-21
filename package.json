@@ -1,0 +1,20 @@
+{
+  "name": "pyro-player",
+  "version": "1.0.0",
+  "description": "Pyro Player is a quick'n'dirty piece of software to control a simple pyromusical this December",
+  "dependencies": {
+    "finalhandler": "github:expressjs/finalhandler",
+    "serve-static": "github:expressjs/serve-static",
+    "websocket": "^1.0.29"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Timendus/pyro-player.git"
+  },
+  "author": "Tim Franssen",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/Timendus/pyro-player/issues"
+  }
+}
