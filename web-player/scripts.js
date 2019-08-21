@@ -3,8 +3,9 @@ window.addEventListener('load', function() {
   const srtButton   = document.querySelector('#subtitles');
   const mediaButton = document.querySelector('#media');
 
-  const player = new Player(playButton);
-  const watcher = new PlayerWatcher(player);
+  const player           = new Player(playButton);
+  const watcher          = new PlayerWatcher(player);
+  const firingInstructor = new FiringInstructor();
 
   mediaButton.addEventListener('change', (e) => {
     new InMemoryFile({
@@ -23,9 +24,12 @@ window.addEventListener('load', function() {
       type: 'subtitles'
     })
     .then((file) => {
-      // TODO: send command to raspberry pi / Arduino board
-      watcher.setCallbackMoments(file.contents, (m) => console.log(m));
-      updateButtonStates();
+      if ( (wrong = firingInstructor.invalidCommands(file.contents)).length == 0 ) {
+        watcher.setCallbackMoments(file.contents, (m) => { console.log(m); firingInstructor.fire(m); });
+        updateButtonStates();
+      } else {
+        InfoBox.warn('Invalid .srt file', `Your subtitle file contains invalid fireworks commands (${wrong.join(', ')}). For the full list of valid commands, see <a href="https://github.com/Timendus/pyro-player/tree/master/shared/allowed-commands.js" target="_blank">here</a>.`);
+      }
     });
   });
 
@@ -42,21 +46,5 @@ window.addEventListener('load', function() {
       playButton.classList.remove('disabled');
     }
   }
-
-  window.WebSocket = window.WebSocket || window.MozWebSocket;
-  var connection = new WebSocket('ws://127.0.0.1:8080', 'fireworks-protocol');
-
-  connection.onopen = function () {
-    console.log('Opened connection magic');
-    connection.send('test!');
-  };
-
-  connection.onerror = function (error) {
-    console.error('Shit blew up:', error);
-  };
-
-  connection.onmessage = function (message) {
-    console.log(message);
-  };
 
 });

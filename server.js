@@ -4,7 +4,7 @@ const WebSocketServer = require('websocket').server;
 const http = require('http');
 const finalhandler = require('finalhandler');
 const serveStatic = require('serve-static');
-const serve = serveStatic("web-player", { index: 'index.html' });
+const serve = serveStatic('web-player', { index: 'index.html' });
 
 const server = http.createServer((request, response) => {
   console.log((new Date()) + ' Received request for ' + request.url);
