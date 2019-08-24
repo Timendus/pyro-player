@@ -1,7 +1,8 @@
 class FiringInstructor {
 
   constructor() {
-    this.connection = new WebSocket(`ws://${location.host}`, 'fireworks-protocol');
+    const protocol = location.protocol == 'https:' ? 'wss:' : 'ws:';
+    this.connection = new WebSocket(`${protocol}//${location.host}`, 'fireworks-protocol');
     this._bindEventHandlers();
   }
 
@@ -25,7 +26,9 @@ class FiringInstructor {
   }
 
   _handleError(error) {
-    console.error('Shit blew up:', error);
+    console.error(error);
+    InfoBox.warn('An error occured connecting to the back-end', error);
+
   }
 
 }
