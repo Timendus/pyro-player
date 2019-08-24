@@ -4,14 +4,24 @@ const WebSocketServer = require('websocket').server;
 const http = require('http');
 const finalhandler = require('finalhandler');
 const serveStatic = require('serve-static');
+const Commands = require('./shared/commands');
+
+function log(message, sender=false) {
+  console.log(`[${new Date()}]${sender ? '['+sender+']' : ''} ${message}`);
+}
+
+/** Serve files from ./web-player **/
+
 const serve = serveStatic('web-player', { index: 'index.html' });
 
 const server = http.createServer((request, response) => {
-  console.log((new Date()) + ' Received request for ' + request.url);
+  log('Received request for ' + request.url);
   serve(request, response, finalhandler(request, response));
 });
 
-server.listen(8080, () => console.log((new Date()) + ' Server is listening on port 8080'));
+server.listen(8080, () => log('Server is listening on port 8080'));
+
+/** Set up web sockets **/
 
 wsServer = new WebSocketServer({
   httpServer: server,
@@ -23,32 +33,24 @@ wsServer = new WebSocketServer({
   autoAcceptConnections: false
 });
 
-function originIsAllowed(origin) {
-  // put logic here to detect whether the specified origin is allowed.
-  return true;
-}
-
 wsServer.on('request', (request) => {
-  if (!originIsAllowed(request.origin)) {
-    // Make sure we only accept requests from an allowed origin
-    request.reject();
-    console.log((new Date()) + ' Connection from origin ' + request.origin + ' rejected.');
-    return;
-  }
-
   const connection = request.accept('fireworks-protocol', request.origin);
-  console.log((new Date()) + ' Connection accepted.');
+  log('Connection accepted', connection.remoteAddress);
 
   connection.on('message', (message) => {
-    if (message.type === 'utf8') {
-      console.log('Received Message: ' + message.utf8Data);
-      connection.sendUTF(message.utf8Data);
-    }
-    else if (message.type === 'binary') {
-      console.log('Received Binary Message of ' + message.binaryData.length + ' bytes');
-      connection.sendBytes(message.binaryData);
-    }
+    if ( message.type !== 'utf8')
+      return log(`Invalid request type received: ${JSON.stringify(message)}`, connection.remoteAddress);
+
+    const command = message.utf8Data;
+    if ( !Commands.isValid(command) )
+      return log(`Invalid command received: ${JSON.stringify(message)}`, connection.remoteAddress);
+
+    const code = Commands.getCode(command);
+    log(`Received command '${command}', sending code ${code} to hardware`, connection.remoteAddress);
+
+    // Obvious TODO: actually control hardware
   });
 
-  connection.on('close', (reasonCode, description) => console.log((new Date()) + ' Peer ' + connection.remoteAddress + ' disconnected.'));
+  connection.on('close', (reasonCode, description) =>
+    log('Peer disconnected', connection.remoteAddress));
 });
