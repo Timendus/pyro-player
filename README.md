@@ -10,10 +10,24 @@ We use the DB04R firework firing system / receiver that gets its commands over
 
 ## Preparation
 
-### Hardware / software (todo)
+### Hardware / software
 
-* Solder some transmitter hardware to some board (instructions todo)
-* Flash something on a board (software/instructions todo)
+Warning: This is a work in progress. Instructions may be wrong and the software
+isn't done yet.
+
+* Attach a transmitter to a Raspberry Pi ([as shown here](https://www.youtube.com/watch?v=Xe5Bj_N4Crw))
+* Install Raspbian on the Raspberry Pi
+* In a terminal, run:
+
+```bash
+$ apt-get install git node
+$ git clone git@github.com:Timendus/pyro-player.git
+$ cd pyro-player
+$ npm install
+$ npm run install-service
+```
+
+* Reboot the Raspberry Pi
 
 ### Content
 

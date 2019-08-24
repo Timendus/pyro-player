@@ -49,6 +49,7 @@ wsServer.on('request', (request) => {
     log(`Received command '${command}', sending code ${code} to hardware`, connection.remoteAddress);
 
     // Obvious TODO: actually control hardware
+    // Using this..? https://github.com/ftrier/rpi-433
   });
 
   connection.on('close', (reasonCode, description) =>
