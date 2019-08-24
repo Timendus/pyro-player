@@ -16,5 +16,10 @@
   "license": "GPL-3.0-or-later",
   "bugs": {
     "url": "https://github.com/Timendus/pyro-player/issues"
+  },
+  "scripts": {
+    "postinstall": "npm run install-service",
+    "install-service": "echo 'This is TODO'",
+    "start": "node server.js"
   }
 }
