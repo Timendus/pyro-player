@@ -18,7 +18,7 @@ We use the DB04R firework firing system / receiver that gets its commands over
 ### Content
 
 * Create a `.srt` subtitle file for your music(video) with commands instead of subtitles
-* Those commands correspond to the queues on your firework receivers, available commands [listed here](https://github.com/Timendus/pyro-player/blob/master/shared/allowed-commands.js)
+* Those commands correspond to the queues on your firework receivers, available commands [listed here](https://github.com/Timendus/pyro-player/blob/master/shared/commands.js)
 * Get your music file and your `.srt` file ready
 
 ### Fireworks

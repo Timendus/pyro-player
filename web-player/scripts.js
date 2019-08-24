@@ -28,7 +28,7 @@ window.addEventListener('load', function() {
         watcher.setCallbackMoments(file.contents, (m) => { console.log(m); firingInstructor.fire(m); });
         updateButtonStates();
       } else {
-        InfoBox.warn('Invalid .srt file', `Your subtitle file contains invalid fireworks commands (${wrong.join(', ')}). For the full list of valid commands, see <a href="https://github.com/Timendus/pyro-player/tree/master/shared/allowed-commands.js" target="_blank">here</a>.`);
+        InfoBox.warn('Invalid .srt file', `Your subtitle file contains invalid fireworks commands (${wrong.join(', ')}). For the full list of valid commands, see <a href="https://github.com/Timendus/pyro-player/blob/master/shared/commands.js" target="_blank">here</a>.`);
       }
     });
   });
