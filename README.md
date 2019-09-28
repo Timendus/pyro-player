@@ -32,17 +32,17 @@ isn't done yet.
 
 * Attach the transmitter to your Raspberry Pi ([as shown here](https://www.youtube.com/watch?v=Xe5Bj_N4Crw))
 * Install Raspbian on the Raspberry Pi
-* Configure the Pi as a WiFi access point ([as detailed here](https://www.raspberrypi.org/documentation/configuration/wireless/access-point.md))
 * In a terminal, run:
 
 ```bash
-/home/pi $ apt-get install git node
+/home/pi $ sudo apt-get install git nodejs npm
 /home/pi $ git clone git@github.com:Timendus/pyro-player.git
 /home/pi $ cd pyro-player
 /home/pi/pyro-player $ npm install
 /home/pi/pyro-player $ npm run install-service # TODO
 ```
 
+* Configure the Pi as a WiFi access point ([as detailed here](https://www.raspberrypi.org/documentation/configuration/wireless/access-point.md))
 * Reboot the Raspberry Pi
 
 ### Content
