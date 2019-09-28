@@ -35,11 +35,11 @@ isn't done yet.
 * In a terminal, run:
 
 ```bash
-/home/pi $ sudo apt-get install git nodejs npm
+/home/pi $ sudo apt-get install git nodejs npm python3-pip
+/home/pi $ pip3 install rpi-rf
 /home/pi $ git clone git@github.com:Timendus/pyro-player.git
 /home/pi $ cd pyro-player
 /home/pi/pyro-player $ npm install
-/home/pi/pyro-player $ npm run install-service # TODO
 ```
 
 * Configure the Pi as a WiFi access point ([as detailed here](https://www.raspberrypi.org/documentation/configuration/wireless/access-point.md))

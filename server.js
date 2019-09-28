@@ -50,7 +50,12 @@ wsServer.on('request', (request) => {
     log(`Received command '${command}', sending code ${code} to hardware`, connection.remoteAddress);
 
     // Send code to hardware
-    exec(`rpi-rf_send ${code} -r 4`);
+    exec(`rpi-rf_send ${code} -r 4`, (err, stdout, stderr) => {
+      log(`rpi-rf_send says: ${stdout.trim()}`);
+      if ( err ) {
+        log(`Got an error from rpi-rf_send: ${stderr.trim()}`);
+      }
+    });
   });
 
   connection.on('close', (reasonCode, description) =>
