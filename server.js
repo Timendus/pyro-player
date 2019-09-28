@@ -1,10 +1,11 @@
 #!/usr/bin/env node
 
 const WebSocketServer = require('websocket').server;
-const http = require('http');
-const finalhandler = require('finalhandler');
-const serveStatic = require('serve-static');
-const Commands = require('./shared/commands');
+const http            = require('http');
+const finalhandler    = require('finalhandler');
+const serveStatic     = require('serve-static');
+const Commands        = require('./shared/commands');
+const { exec }        = require('child_process');
 
 function log(message, sender=false) {
   console.log(`[${new Date()}]${sender ? '['+sender+']' : ''} ${message}`);
@@ -48,8 +49,8 @@ wsServer.on('request', (request) => {
     const code = Commands.getCode(command);
     log(`Received command '${command}', sending code ${code} to hardware`, connection.remoteAddress);
 
-    // Obvious TODO: actually control hardware
-    // Using this..? https://github.com/ftrier/rpi-433
+    // Send code to hardware
+    exec(`rpi-rf_send ${code} -r 4`);
   });
 
   connection.on('close', (reasonCode, description) =>

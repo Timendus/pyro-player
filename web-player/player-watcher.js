@@ -6,6 +6,7 @@ class PlayerWatcher {
     this.callbackMoments = [];
     this.callbackIndex   = 0;
     this.ready           = false;
+    this.timingOffset    = 0;
     this._bindAudioEventHandlers();
   }
 
@@ -39,7 +40,7 @@ class PlayerWatcher {
     const [ index, moments ] = [ this.callbackIndex, this.callbackMoments ];
     if ( index == moments.length ) return;
 
-    if ( this.player.audio.currentTime > moments[index][0] ) {
+    if ( this.player.audio.currentTime > moments[index][0] - this.timingOffset ) {
       this.callbackFunction(moments[index][1]);
       this.callbackIndex++;
     }
