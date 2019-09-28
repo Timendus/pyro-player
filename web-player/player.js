@@ -42,7 +42,8 @@ class Player {
 
   _handleError(error) {
     this._selectClass('error');
-    InfoBox.warn('An error occured in the media player', error);
+    InfoBox.warn('An error occured in the media player', 'Maybe you chose an invalid file? See console for details.');
+    console.error(error);
   }
 
 }

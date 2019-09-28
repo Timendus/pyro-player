@@ -26,9 +26,8 @@ class FiringInstructor {
   }
 
   _handleError(error) {
+    InfoBox.warn('Could not connect to back-end', 'This means no real fireworks will be fired.');
     console.error(error);
-    InfoBox.warn('An error occured connecting to the back-end', error);
-
   }
 
 }
