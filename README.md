@@ -30,7 +30,7 @@ music on the client device (your phone or laptop).
 Warning: This is a work in progress. Instructions may be wrong and the software
 isn't done yet.
 
-* Attach the transmitter to your Raspberry Pi ([as shown here](https://www.youtube.com/watch?v=Xe5Bj_N4Crw))
+* Attach the transmitter to your Raspberry Pi ([as shown here](https://pypi.org/project/rpi-rf/#wiring-diagram-example). Don't know how? [See this](https://www.youtube.com/watch?v=Xe5Bj_N4Crw))
 * Install Raspbian on the Raspberry Pi
 * In a terminal, run:
 
