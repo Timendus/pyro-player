@@ -27,8 +27,8 @@ music on the client device (your phone or laptop).
 
 ### Hardware / software
 
-Warning: This is a work in progress. Instructions may be wrong and the software
-isn't done yet.
+Warning: This software is still very new. These steps are still far from
+idiot-proof and assume that you know what you're doing 😉
 
 * Attach the transmitter to your Raspberry Pi ([as shown here](https://pypi.org/project/rpi-rf/#wiring-diagram-example). Don't know how? [See this](https://www.youtube.com/watch?v=Xe5Bj_N4Crw))
 * Install Raspbian on the Raspberry Pi
@@ -44,6 +44,11 @@ isn't done yet.
 
 * Configure the Pi as a WiFi access point ([as detailed here](https://www.raspberrypi.org/documentation/configuration/wireless/access-point.md))
 * Reboot the Raspberry Pi
+* (For now, as this should be automated:) Connect to the Raspberry and run:
+
+```bash
+/home/pi/pyro-player $ npm start
+```
 
 ### Content
 

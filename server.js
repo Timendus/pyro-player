@@ -20,7 +20,7 @@ const server = http.createServer((request, response) => {
   serve(request, response, finalhandler(request, response));
 });
 
-server.listen(8080, () => log('Server is listening on port 8080'));
+server.listen(80, () => log('Server is listening on port 80'));
 
 /** Set up web sockets **/
 
