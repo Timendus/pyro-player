@@ -60,7 +60,12 @@ Commands.commandList = {
 
   'fire 33 through 44 now':         '5202109',
   'fire 46':                        '5202110',
-  'fire 33 through 44 in sequence': '5202111'
+  'fire 33 through 44 in sequence': '5202111',
+
+  'test 1':                         '1381649',
+  'test 2':                         '1381652',
+  'test 3':                         '1316113',
+  'test 4':                         '1316116'
 
 };
 
