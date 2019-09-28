@@ -55,6 +55,7 @@ idiot-proof and assume that you know what you're doing 😉
 * Using an editor of your choice, create a `.srt` subtitle file for your music(video) with commands instead of subtitles
 * Those commands correspond to the queues on your firework receivers, available commands [listed here](https://github.com/Timendus/pyro-player/blob/master/shared/commands.js)
 * Get your music file and your `.srt` file ready
+* You can test your files by doing a 'dry run' [here](https://timendus.github.io/pyro-player/web-player/).
 
 ### Fireworks
 
