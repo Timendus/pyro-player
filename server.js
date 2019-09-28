@@ -51,7 +51,9 @@ wsServer.on('request', (request) => {
 
     // Send code to hardware
     exec(`rpi-rf_send ${code} -r 4`, (err, stdout, stderr) => {
-      log(`rpi-rf_send says: ${stdout.trim()}`);
+      if ( stdout ) {
+        log(`rpi-rf_send says: ${stdout.trim()}`);
+      }
       if ( err ) {
         log(`Got an error from rpi-rf_send: ${stderr.trim()}`);
       }
