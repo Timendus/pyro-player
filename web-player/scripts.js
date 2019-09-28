@@ -4,7 +4,8 @@ window.addEventListener('load', function() {
   const mediaButton = document.querySelector('#media');
 
   const player           = new Player(playButton);
-  const watcher          = new PlayerWatcher(player);
+  const fireWatcher      = new PlayerWatcher(player, 0.3);
+  const showWatcher      = new PlayerWatcher(player, 0.0);
   const firingInstructor = new FiringInstructor();
 
   mediaButton.addEventListener('change', (e) => {
@@ -25,7 +26,8 @@ window.addEventListener('load', function() {
     })
     .then((file) => {
       if ( (wrong = firingInstructor.invalidCommands(file.contents)).length == 0 ) {
-        watcher.setCallbackMoments(file.contents, (m) => { console.log(m); firingInstructor.fire(m); });
+        fireWatcher.setCallbackMoments(file.contents, (m) => firingInstructor.fire(m));
+        showWatcher.setCallbackMoments(file.contents, (m) => InfoBox.showAndFade(m));
         updateButtonStates();
       } else {
         InfoBox.warn('Invalid .srt file', `Your subtitle file contains invalid fireworks commands (${wrong.join(', ')}). For the full list of valid commands, see <a href="https://github.com/Timendus/pyro-player/blob/master/shared/commands.js" target="_blank">here</a>.`);
@@ -34,7 +36,7 @@ window.addEventListener('load', function() {
   });
 
   function updateButtonStates() {
-    if ( watcher.isReady() ) {
+    if ( fireWatcher.isReady() && showWatcher.isReady() ) {
       srtButton.closest('label').classList.add('disabled');
       srtButton.disabled = 'disabled';
     }
@@ -42,7 +44,7 @@ window.addEventListener('load', function() {
       mediaButton.closest('label').classList.add('disabled');
       mediaButton.disabled = 'disabled';
     }
-    if ( watcher.isReady() && player.isReady() ) {
+    if ( fireWatcher.isReady() && showWatcher.isReady() && player.isReady() ) {
       playButton.classList.remove('disabled');
     }
   }

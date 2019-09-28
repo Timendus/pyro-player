@@ -73,6 +73,35 @@ section.info h2 {
   margin-bottom: 0;
 }
 
+/** Event box **/
+
+section.event {
+  position: absolute;
+  right: 2em;
+  top: 7em;
+  width: auto;
+  height: auto;
+
+  padding: 1.5em;
+  background-color: red;
+  color: white;
+  border-radius: 1em;
+
+  font-weight: bold;
+  font-family: Tahoma, Arial, sans-serif;
+
+  animation-duration: 3s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  opacity: 0;
+}
+section.event.show {
+  animation-name: fade-away-1;
+}
+section.event.trigger {
+  animation-name: fade-away-2
+}
+
 /** Way too fancy Play button **/
 
 button.play {
@@ -215,5 +244,23 @@ label.disabled .disabled {
   }
   100% {
     background-color: #e47e14;
+  }
+}
+
+@keyframes fade-away-1 {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes fade-away-2 {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
   }
 }

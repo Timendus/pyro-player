@@ -1,12 +1,12 @@
 class PlayerWatcher {
 
-  constructor(player) {
+  constructor(player, offset) {
     this.player          = player;
     this.interval        = null;
     this.callbackMoments = [];
     this.callbackIndex   = 0;
     this.ready           = false;
-    this.timingOffset    = 0;
+    this.timingOffset    = offset;
     this._bindAudioEventHandlers();
   }
 
