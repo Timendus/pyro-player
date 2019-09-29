@@ -7,9 +7,11 @@ const serveStatic     = require('serve-static');
 const Commands        = require('./shared/commands');
 const { exec }        = require('child_process');
 
+
 function log(message, sender=false) {
   console.log(`[${new Date()}]${sender ? '['+sender+']' : ''} ${message}`);
 }
+
 
 /** Serve files from ./web-player **/
 
@@ -22,15 +24,11 @@ const server = http.createServer((request, response) => {
 
 server.listen(80, () => log('Server is listening on port 80'));
 
+
 /** Set up web sockets **/
 
 wsServer = new WebSocketServer({
   httpServer: server,
-  // You should not use autoAcceptConnections for production
-  // applications, as it defeats all standard cross-origin protection
-  // facilities built into the protocol and the browser.  You should
-  // *always* verify the connection's origin and decide whether or not
-  // to accept it.
   autoAcceptConnections: false
 });
 
@@ -49,14 +47,11 @@ wsServer.on('request', (request) => {
     const code = Commands.getCode(command);
     log(`Received command '${command}', sending code ${code} to hardware`, connection.remoteAddress);
 
-    // Send code to hardware
+    // Send code to hardware using rpi-rf. Signal repeated four times.
+    // See: https://github.com/milaq/rpi-rf
     exec(`rpi-rf_send ${code} -r 4`, (err, stdout, stderr) => {
-      if ( stdout ) {
-        log(`rpi-rf_send says: ${stdout.trim()}`);
-      }
-      if ( err ) {
-        log(`Got an error from rpi-rf_send: ${stderr.trim()}`);
-      }
+      if ( stdout ) { log(`rpi-rf_send says: ${stdout.trim()}`); }
+      if ( err    ) { log(`Got an error from rpi-rf_send: ${stderr.trim()}`); }
     });
   });
 
