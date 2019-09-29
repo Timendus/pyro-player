@@ -25,7 +25,7 @@ class InMemoryFile {
 
   _parseSRTFile(file) {
     let match, subs = [];
-    let iterator = file.matchAll(/\d\n(\d+):(\d+):(\d+),(\d+)\s.*\n(.*)\n/g);
+    let iterator = file.matchAll(/\d\r?\n(\d+):(\d+):(\d+),(\d+)\s.*\r?\n(.*)\r?\n/g);
 
     // TODO: is this the best way to iterate over regexp matches?
     while ( !(match = iterator.next()).done ) {
