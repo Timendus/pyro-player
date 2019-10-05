@@ -22,9 +22,9 @@ const Commands = {
     'fire 11':                        '5202075',
     'fire 12':                        '5202076',
 
-    'fire 1 through 12 now':          '5202077',
+    'fire 1 through 16 now':          '5202077',
     'fire 14':                        '5202078',
-    'fire 1 through 15 in sequence':  '5202079',
+    'fire 1 through 12 in sequence':  '5202079',
     'fire 16':                        '5202080',
 
     'fire 17':                        '5202081',
@@ -42,9 +42,9 @@ const Commands = {
     'fire 27':                        '5202091',
     'fire 28':                        '5202092',
 
-    'fire 18 through 25 now':         '5202093',
+    'fire 17 through 32 now':         '5202093',
     'fire 30':                        '5202094',
-    'fire 18 through 27 in sequence': '5202095',
+    'fire 17 through 28 in sequence': '5202095',
     'fire 32':                        '5202096',
 
     'fire 33':                        '5202097',
@@ -62,14 +62,10 @@ const Commands = {
     'fire 43':                        '5202107',
     'fire 44':                        '5202108',
 
-    'fire 33 through 44 now':         '5202109',
+    'fire 33 through 48 now':         '5202109',
     'fire 46':                        '5202110',
     'fire 33 through 44 in sequence': '5202111',
-
-    'test 1':                         '1381649',
-    'test 2':                         '1381652',
-    'test 3':                         '1316113',
-    'test 4':                         '1316116'
+    'fire 48':                        '5202112'
 
   },
 
