@@ -28,7 +28,7 @@ class PlayerWatcher {
   }
 
   _startWatching() {
-    this.interval = window.setInterval(() => this._checkMoments(), 50);
+    this.interval = window.setInterval(() => this._checkMoments(), 10);
   }
 
   _stopWatching() {
