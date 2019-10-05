@@ -4,7 +4,7 @@ window.addEventListener('load', function() {
   const mediaButton = document.querySelector('#media');
 
   const player           = new Player(playButton);
-  const fireWatcher      = new PlayerWatcher(player, 0.3);
+  const fireWatcher      = new PlayerWatcher(player, 0.4);
   const showWatcher      = new PlayerWatcher(player, 0.0);
   const firingInstructor = new FiringInstructor();
 
