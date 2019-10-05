@@ -1,0 +1,10 @@
+[Unit]
+Description=Pyro Player
+After=multi-user.target
+
+[Service]
+Type=idle
+ExecStart=cd /home/pi/pyro-player && npm start > /home/pi/pyro-player/server.log 2>&1
+
+[Install]
+WantedBy=multi-user.target
