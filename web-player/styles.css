@@ -204,6 +204,13 @@ label.media {
 label.subtitles {
   margin-left: 1vh;
 }
+label.timing {
+  margin-left: -6vh;
+  margin-top: 22vh;
+
+  background-color: #6969cc;
+  border-color: #4e4e82;
+}
 
 label.disabled {
   background-color: #dadada;
@@ -211,13 +218,13 @@ label.disabled {
   cursor: default;
 }
 
-label .disabled {
+label span.disabled {
   display: none;
 }
-label.disabled .normal {
+label.disabled span.normal {
   display: none;
 }
-label.disabled .disabled {
+label.disabled span.disabled {
   display: inline;
 }
 

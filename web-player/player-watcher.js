@@ -16,6 +16,10 @@ class PlayerWatcher {
     this.ready = true;
   }
 
+  setOffset(offset) {
+    this.timingOffset = offset;
+  }
+
   isReady() {
     return this.ready;
   }

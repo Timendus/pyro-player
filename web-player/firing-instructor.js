@@ -13,6 +13,7 @@ class FiringInstructor {
   }
 
   fire(instruction) {
+    console.log(`🎆 ${instruction}`);
     this.connection.send(instruction);
   }
 

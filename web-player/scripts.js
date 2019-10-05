@@ -1,12 +1,18 @@
 window.addEventListener('load', function() {
-  const playButton  = document.querySelector('button.play');
-  const srtButton   = document.querySelector('#subtitles');
-  const mediaButton = document.querySelector('#media');
+  const playButton   = document.querySelector('button.play');
+  const srtButton    = document.querySelector('#subtitles');
+  const timingButton = document.querySelector('label.timing');
+  const mediaButton  = document.querySelector('#media');
 
   const player           = new Player(playButton);
   const fireWatcher      = new PlayerWatcher(player, 0.4);
   const showWatcher      = new PlayerWatcher(player, 0.0);
   const firingInstructor = new FiringInstructor();
+
+  timingButton.addEventListener('click', () => {
+    const offset = prompt('Change how much earlier the signal to the hardware gets sent (value in seconds, default is 0.4s)', 0.4);
+    fireWatcher.setOffset(offset);
+  });
 
   mediaButton.addEventListener('change', (e) => {
     new InMemoryFile({
