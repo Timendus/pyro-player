@@ -3,7 +3,7 @@ Description=Pyro Player
 After=network.target
 
 [Service]
-ExecStart=/home/pi/pyro-player/start.sh
+ExecStart=/home/pi/pyro-player/raspberry-pi/start.sh
 
 [Install]
 WantedBy=multi-user.target

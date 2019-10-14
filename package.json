@@ -20,7 +20,8 @@
     "url": "https://github.com/Timendus/pyro-player/issues"
   },
   "scripts": {
-    "install-service": "./install.sh",
-    "start": "nodemon server.js"
+    "start": "nodemon server.js",
+    "install-service": "./raspberry-pi/install.sh",
+    "make-access-point": "./raspberry-pi/access-point.sh"
   }
 }
