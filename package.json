@@ -21,7 +21,7 @@
   },
   "scripts": {
     "postinstall": "npm run install-service",
-    "install-service": "sudo ln -s ./service /lib/systemd/system/pyroplayer.service && sudo systemctl daemon-reload && sudo systemctl enable pyroplayer",
+    "install-service": "./install.sh",
     "start": "nodemon server.js"
   }
 }
