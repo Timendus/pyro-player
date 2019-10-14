@@ -20,7 +20,6 @@
     "url": "https://github.com/Timendus/pyro-player/issues"
   },
   "scripts": {
-    "postinstall": "npm run install-service",
     "install-service": "./install.sh",
     "start": "nodemon server.js"
   }

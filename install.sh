@@ -2,10 +2,9 @@
 
 SERVICE_FILE=/lib/systemd/system/pyroplayer.service
 
-# Link service file to our local versioned file, if not yet done so
-if [ ! -f $SERVICE_FILE ]; then
-  sudo ln -s `pwd`/service $SERVICE_FILE
-fi
+# Reload service file
+sudo rm $SERVICE_FILE
+sudo cp ./pyroplayer.service $SERVICE_FILE
 
 # Reload and enable
 sudo systemctl daemon-reload

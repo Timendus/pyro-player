@@ -1,9 +1,8 @@
 [Unit]
 Description=Pyro Player
-After=multi-user.target
+After=network.target
 
 [Service]
-Type=idle
 ExecStart=/home/pi/pyro-player/start.sh
 
 [Install]
