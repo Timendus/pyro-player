@@ -32,7 +32,7 @@ idiot-proof and assume that you know what you're doing 😉
 
 * Attach the transmitter to your Raspberry Pi ([as shown here](https://pypi.org/project/rpi-rf/#wiring-diagram-example). Don't know how? [See this](https://www.youtube.com/watch?v=Xe5Bj_N4Crw))
 * Install Raspbian on the Raspberry Pi
-* In a terminal, run:
+* Install Pyro Player and its dependencies by running in a terminal:
 
 ```bash
 /home/pi $ sudo apt-get install git nodejs npm python3-pip
@@ -42,13 +42,19 @@ idiot-proof and assume that you know what you're doing 😉
 /home/pi/pyro-player $ npm install
 ```
 
-* Configure the Pi as a WiFi access point ([as detailed here](https://www.raspberrypi.org/documentation/configuration/wireless/access-point.md))
-* Reboot the Raspberry Pi
-* (For now, as this should be automated:) Connect to the Raspberry and run:
+* Configure Pyro Player to start on boot:
 
 ```bash
-/home/pi/pyro-player $ npm start
+/home/pi/pyro-player $ npm run install-service
 ```
+
+* Configure the Pi as a WiFi access point by running:
+
+```bash
+/home/pi/pyro-player $ npm run make-access-point
+```
+
+* Reboot the Raspberry Pi
 
 ### Content
 
@@ -70,8 +76,9 @@ idiot-proof and assume that you know what you're doing 😉
 * Power up the Raspberry Pi, wait for it to boot (tip: use a USB power bank)
 * Connect your WiFi client device to a nice set of (wired) speakers. Don't use Bluetooth because it introduces a delay
 * On your client device:
-  * Connect to the Raspberry Pi's WiFi
-  * Open a web browser and navigate to `http://192.168.4.1` (or whatever the IP address of the Pi is)
+  * Connect to the WiFi access point "PyroPlayer", password "PyroMusical"
+  * Open a web browser and navigate to `pyro.com` (or whatever, the pi should catch any http request)
+  * You should see the Pyro Player interface
   * Upload your music file and your `.srt` file
   * Press play
 
