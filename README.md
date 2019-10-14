@@ -56,7 +56,14 @@ Warning: These steps assume that you know what you're doing 😉
 
 * Reboot the Raspberry Pi
 
-After a minute or so you should see a WiFi access point `PyroPlayer` show up. The password is `PyroMusical`. The Pi is then at `192.168.4.1`.
+After a minute or so you should see a WiFi access point `PyroPlayer` show up.
+The password is `PyroMusical`. The Pi is then at `192.168.4.1`.
+
+It's probably a good idea to use your SD card read-only, because you will be
+treating this Pi as a piece of dedicated hardware in the field, and you will
+probably not be shutting it down properly. Instructions on how to do that
+[here](https://medium.com/swlh/make-your-raspberry-pi-file-system-read-only-raspbian-buster-c558694de79).
+I may add a script for that too at some point. We'll see.
 
 ### Content
 
@@ -78,7 +85,7 @@ After a minute or so you should see a WiFi access point `PyroPlayer` show up. Th
 * Power up the Raspberry Pi, wait for it to boot (tip: use a 2 ampere USB power bank)
 * Connect your WiFi client device to a nice set of (wired) speakers. Don't use Bluetooth because it introduces a delay
 * On your client device:
-  * Connect to the WiFi access point "PyroPlayer", password "PyroMusical"
+  * Connect to the WiFi access point `PyroPlayer`, password `PyroMusical`
   * Open a web browser and navigate to `pyro.com` (or whatever, the pi should catch any http request that isn't in your cache. If all else fails, go to `http://192.168.4.1`)
   * You should see the Pyro Player interface
   * Upload your music file and your `.srt` file
