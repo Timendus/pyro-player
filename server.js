@@ -40,6 +40,15 @@ wsServer.on('request', (request) => {
     if ( message.type !== 'utf8')
       return log(`Invalid request type received: ${JSON.stringify(message)}`, connection.remoteAddress);
 
+    if ( message.utf8Data == 'SHUTDOWN' ) {
+      log('Shutting down!');
+      exec(`shutdown -h now`, (err, stdout, stderr) => {
+        if ( stdout ) { log(`shutdown command says: ${stdout.trim()}`); }
+        if ( err    ) { log(`Got an error from shutdown command: ${stderr.trim()}`); }
+      });
+      return;
+    }
+
     const command = message.utf8Data;
     if ( !Commands.isValid(command) )
       return log(`Invalid command received: ${JSON.stringify(message)}`, connection.remoteAddress);

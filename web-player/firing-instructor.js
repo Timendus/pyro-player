@@ -17,6 +17,10 @@ class FiringInstructor {
     this.connection.send(instruction);
   }
 
+  shutdown() {
+    this.connection.send('SHUTDOWN');
+  }
+
   _bindEventHandlers() {
     this.connection.addEventListener('open',    ()  => this._handleOpen());
     this.connection.addEventListener('error',   (e) => this._handleError(e));
