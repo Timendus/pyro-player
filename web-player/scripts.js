@@ -16,7 +16,8 @@ window.addEventListener('load', function() {
   });
 
   shutdownButton.addEventListener('click', () => {
-    firingInstructor.shutdown();
+    if ( confirm('Are you sure you want to shut down your Raspberry Pi?') )
+      firingInstructor.shutdown();
   });
 
   mediaButton.addEventListener('change', (e) => {
